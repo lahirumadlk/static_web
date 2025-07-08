@@ -2,58 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hello Shashi!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      padding: 0;
-      height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to right, #fdfcfb, #e2d1c3);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
       text-align: center;
-      color: #333;
+      padding: 20px;
     }
 
     h1 {
-      font-size: 3em;
-      margin-bottom: 0.3em;
-    }
-
-    p {
-      font-size: 1.5em;
-      max-width: 600px;
-      line-height: 1.6;
+      font-family: 'Great Vibes', cursive;
+      font-size: 4em;
+      color: #a23e48;
+      animation: fadeInDown 2s ease;
     }
 
     .quote {
-      font-style: italic;
-      margin-top: 1em;
-      color: #555;
+      font-size: 1.5em;
+      color: #444;
+      margin-top: 20px;
+      max-width: 700px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease-in-out;
     }
 
-    .heart {
-      color: red;
-      font-size: 2em;
-      animation: pulse 2s infinite;
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+    .typing {
+      border-right: 2px solid #555;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 3s steps(30, end) forwards, blink .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5em;
+      }
+      .quote {
+        font-size: 1.2em;
+      }
     }
   </style>
 </head>
 <body>
+
   <h1>Hello Shashi!</h1>
-  <p class="quote">
-    "She is a wildflower in a field of roses — soft, strong, and beautifully rare."
-  </p>
-  <div class="heart">❤️</div>
+  <div id="quote" class="quote typing"></div>
+
+  <script>
+    const quotes = [
+      "She is art painted by the hands of the universe.",
+      "In her smile, lies a thousand untold stories.",
+      "Her soul is a garden blooming in eternal spring.",
+      "She walks in beauty, like the night of cloudless climes and starry skies.",
+      "A girl like her lights up hearts, not just rooms."
+    ];
+
+    let index = 0;
+    const quoteEl = document.getElementById("quote");
+
+    function showQuote() {
+      quoteEl.classList.remove('typing');
+      void quoteEl.offsetWidth; // trigger reflow
+      quoteEl.textContent = quotes[index];
+      quoteEl.classList.add('typing');
+      index = (index + 1) % quotes.length;
+    }
+
+    showQuote();
+    setInterval(showQuote, 6000);
+  </script>
+
 </body>
 </html>
